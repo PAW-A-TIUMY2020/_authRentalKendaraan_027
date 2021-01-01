@@ -37,17 +37,7 @@ namespace RentalKendaraan.Areas.Identity.Pages.Account
             _roleManager = roleManager;
         }
 
-        public RegisterModel(
-            UserManager<IdentityUser> userManager,
-            SignInManager<IdentityUser> signInManager,
-            ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
-        {
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _logger = logger;
-            _emailSender = emailSender;
-        }
+        
 
         [BindProperty]
         public InputModel Input { get; set; }
@@ -99,6 +89,8 @@ namespace RentalKendaraan.Areas.Identity.Pages.Account
 
                     //code for adding user to role
                     await _userManager.AddToRoleAsync(user, role.Name);
+
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
